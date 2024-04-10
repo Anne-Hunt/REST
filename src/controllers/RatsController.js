@@ -10,7 +10,7 @@ export class RatsController extends BaseController {
         this.router
             .get('', this.getRats)
             .get('/:ratId/missions', this.searchRat)
-            .use(Auth0Provider.getAuthorizedUserInfo)
+        // .use(Auth0Provider.getAuthorizedUserInfo)
     }
 
     async getRats(request, response, next) {
@@ -24,7 +24,7 @@ export class RatsController extends BaseController {
 
     async searchRat(request, response, next) {
         try {
-            const ratId = request.params.id
+            const ratId = request.params.ratId
             let rat = await missionService.searchRats(ratId)
             response.send(rat)
         } catch (error) {

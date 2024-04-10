@@ -11,7 +11,7 @@ export class LocationsController extends BaseController {
         this.router
             .get('', this.getLocations)
             .get('/:locationId/missions', this.searchLocations)
-            .use(Auth0Provider.getAuthorizedUserInfo)
+        // .use(Auth0Provider.getAuthorizedUserInfo)
     }
 
     async getLocations(request, response, next) {
@@ -23,10 +23,10 @@ export class LocationsController extends BaseController {
         }
     }
 
-    async searchLocations(locationId) {
-
+    async searchLocations(request, response, next) {
+        const locationId = request.params.locationId
         const locations = await missionService.searchLocations(locationId)
-        return locations
+        response.send(locations)
     }
 
 }

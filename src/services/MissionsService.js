@@ -3,13 +3,13 @@ import { dbContext } from "../db/DbContext.js"
 
 class MissionsService {
     async getMissions() {
-        const missions = await dbContext.Mission.find().populate('rat', '-name').populate('location')
+        const missions = await dbContext.Mission.find().populate('rat', '-name -picture').populate('location')
         return missions
     }
 
     async createMission(missiondata) {
         const mission = await dbContext.Mission.create(missiondata)
-        await mission.populate('rat', '-name')
+        await mission.populate('rat', '-name -picture')
         await mission.populate('location')
         return mission
     }
@@ -23,7 +23,7 @@ class MissionsService {
         missionUpdate.year = updateData.year ?? missionUpdate.year
         missionUpdate.locationId = updateData.locationId ?? missionUpdate.locationId
         missionUpdate.ratId = updateData.ratId ?? missionUpdate.ratId
-        missionUpdate.isCompleted = true
+        missionUpdate.completed === true
         await missionUpdate.save()
 
         return missionUpdate
@@ -35,7 +35,7 @@ class MissionsService {
     }
 
     async searchLocations(locationId) {
-        const missions = await dbContext.Mission.find({ locationId: locationId }).populate('rat', '-name')
+        const missions = await dbContext.Mission.find({ locationId: locationId }).populate('rat', '-name -picture')
         return missions
     }
 }

@@ -7,9 +7,9 @@ export class MissionsController extends BaseController {
         super('/api/missions')
         this.router
             .get('', this.getMissions)
-            .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createMission)
             .put('/:missionId', this.updateMission)
+        // .use(Auth0Provider.getAuthorizedUserInfo)
     }
 
     async getMissions(request, response, next) {
@@ -33,7 +33,7 @@ export class MissionsController extends BaseController {
 
     async updateMission(request, response, next) {
         try {
-            const missionId = request.params.id
+            const missionId = request.params.missionId
             const updateData = request.body
             const missionToUpdate = await missionService.updateMission(missionId, updateData)
             response.send(missionToUpdate)
