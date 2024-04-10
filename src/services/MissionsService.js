@@ -13,6 +13,21 @@ class MissionsService {
         await mission.populate('location')
         return mission
     }
+
+    async updateMission(missionId, updateData) {
+        const missionUpdate = await dbContext.Mission.findById(missionId)
+        if (!missionUpdate) throw new Error(`No known mission at ${missionId}`)
+
+        missionUpdate.codename = updateData.codename ?? missionUpdate.codename
+        missionUpdate.objective = updateData.objective ?? missionUpdate.objective
+        missionUpdate.year = updateData.year ?? missionUpdate.year
+        missionUpdate.locationId = updateData.locationId ?? missionUpdate.locationId
+        missionUpdate.ratId = updateData.ratId ?? missionUpdate.ratId
+        missionUpdate.isCompleted = true
+        await missionUpdate.save()
+
+        return missionUpdate
+    }
 }
 
 export const missionService = new MissionsService()
