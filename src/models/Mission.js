@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 
 
-export const MissionsSchema = new Schema({
+export const MissionSchema = new Schema({
     codename: { type: String, required: true },
     objective: { type: String, required: true },
     year: { type: String, required: true },

@@ -1,7 +1,7 @@
 import { missionService } from "../services/MissionsService.js";
 import BaseController from "../utils/BaseController.js";
 
-export class Missions extends BaseController {
+export class MissionsController extends BaseController {
     constructor() {
         super('/api/missions')
         this.router
