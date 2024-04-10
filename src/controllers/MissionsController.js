@@ -1,3 +1,4 @@
+import { Auth0Provider } from "@bcwdev/auth0provider";
 import { missionService } from "../services/MissionsService.js";
 import BaseController from "../utils/BaseController.js";
 
@@ -6,8 +7,9 @@ export class MissionsController extends BaseController {
         super('/api/missions')
         this.router
             .get('', this.getMissions)
+            .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createMission)
-            .put('', this.updateMission)
+            .put('/:missionId', this.updateMission)
     }
 
     async getMissions(request, response, next) {

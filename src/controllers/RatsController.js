@@ -1,5 +1,7 @@
+import { Auth0Provider } from "@bcwdev/auth0provider";
 import { ratsService } from "../services/RatsService.js";
 import BaseController from "../utils/BaseController.js";
+import { missionService } from "../services/MissionsService.js";
 
 
 export class RatsController extends BaseController {
@@ -7,7 +9,8 @@ export class RatsController extends BaseController {
         super('/api/rats')
         this.router
             .get('', this.getRats)
-            .get('', this.searchRat)
+            .get('/:ratId/missions', this.searchRat)
+            .use(Auth0Provider.getAuthorizedUserInfo)
     }
 
     async getRats(request, response, next) {
@@ -21,8 +24,8 @@ export class RatsController extends BaseController {
 
     async searchRat(request, response, next) {
         try {
-            const ratquery = request.query
-            let rat = await ratsService.searchRats(ratquery)
+            const ratId = request.params.id
+            let rat = await missionService.searchRats(ratId)
             response.send(rat)
         } catch (error) {
             next(error)

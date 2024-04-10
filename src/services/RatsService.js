@@ -7,11 +7,6 @@ class RatService {
         return rats
     }
 
-    async searchRats(ratquery) {
-        const rats = await dbContext.Rat.find(ratquery)
-        return rats
-    }
-
 }
 
 export const ratsService = new RatService()
