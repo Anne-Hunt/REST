@@ -9,3 +9,17 @@ export const MissionSchema = new Schema({
     locationId: { type: Schema.ObjectId, required: true, ref: 'Location' },
     ratId: { type: Schema.ObjectId, required: true, ref: 'Rat' }
 }, { toJSON: { virtuals: true } })
+
+MissionSchema.virtual('rat', {
+    localField: 'ratId',
+    ref: 'Rat',
+    foreignField: '_id',
+    justOne: true
+})
+
+MissionSchema.virtual('location', {
+    localField: 'locationId',
+    ref: 'Location',
+    foreignField: '_id',
+    justOne: true
+})
