@@ -23,7 +23,7 @@ class MissionsService {
         missionUpdate.year = updateData.year ?? missionUpdate.year
         missionUpdate.locationId = updateData.locationId ?? missionUpdate.locationId
         missionUpdate.ratId = updateData.ratId ?? missionUpdate.ratId
-        missionUpdate.completed === true
+        missionUpdate.completed = updateData.completed ?? missionUpdate.completed
         await missionUpdate.save()
 
         return missionUpdate
